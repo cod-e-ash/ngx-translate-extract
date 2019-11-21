@@ -293,4 +293,35 @@ describe('ServiceParser', () => {
 		const keys = parser.extract(contents, componentFilename).keys();
 		expect(keys).to.deep.equal(['Back']);
 	});
+
+	it("should extract strings in different TranslateService Name and Function translate() method", () => {
+		const contents = `
+			@Component({ })
+			export class AppComponent {
+				public constructor(protected appService: AppService) { }
+				public test() {
+					this.appService.translate('Hello World');
+				}
+		`;
+		const keys = parser.extract(contents, componentFilename, 'AppService', 'translate').keys();
+		expect(keys).to.deep.equal(['Hello World']);
+	});
+
+	it("should extract strings in if called inside a method", () => {
+		const contents = `
+			@Component({ })
+			export class AppComponent {
+				public constructor(protected appService: AppService) { }
+				public test() {
+					const config = {
+						title: this.appService.translate('Delete Email Server Settings'),
+						messages: [this.appService.translate('Are you sure? This cannot be undone!')],
+						buttons: [ResultEnum.Cancel, ResultEnum.Yes]
+					};
+				}
+		`;
+		const keys = parser.extract(contents, componentFilename, 'AppService', 'translate').keys();
+		expect(keys).to.deep.equal(['Delete Email Server Settings', 'Are you sure? This cannot be undone!']);
+	});
+	
 });

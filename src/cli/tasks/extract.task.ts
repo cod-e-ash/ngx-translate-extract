@@ -13,12 +13,16 @@ import * as mkdirp from 'mkdirp';
 export interface ExtractTaskOptionsInterface {
 	replace?: boolean;
 	patterns?: string[];
+	custService?: string;
+	custMethod?: string;
 }
 
 export class ExtractTask implements TaskInterface {
 	protected options: ExtractTaskOptionsInterface = {
 		replace: false,
-		patterns: []
+		patterns: [],
+		custService: null,
+		custMethod: null
 	};
 
 	protected parsers: ParserInterface[] = [];
@@ -99,13 +103,15 @@ export class ExtractTask implements TaskInterface {
 	 * Extract strings from specified input dirs using configured parsers
 	 */
 	protected extract(): TranslationCollection {
+
 		let collection: TranslationCollection = new TranslationCollection();
+		console.log(this.options);
 		this.inputs.forEach(dir => {
 			this.readDir(dir, this.options.patterns).forEach(filePath => {
 				this.out(dim('- %s'), filePath);
 				const contents: string = fs.readFileSync(filePath, 'utf-8');
 				this.parsers.forEach(parser => {
-					const extracted = parser.extract(contents, filePath);
+					const extracted = parser.extract(contents, filePath, this.options.custService, this.options.custMethod);
 					if (extracted instanceof TranslationCollection) {
 						collection = collection.union(extracted);
 					}

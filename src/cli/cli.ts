@@ -89,13 +89,25 @@ export const cli = yargs
 		describe: 'Use null as default value for translations',
 		type: 'boolean'
 	})
+	.option('servicename', {
+		alias: 'sn',
+		describe: 'Translate service name to be used',
+		type: 'string'
+	})
+	.option('methodname', {
+		alias: 'mn',
+		describe: 'Translate function name to be used',
+		type: 'string'
+	})
 	.conflicts('key-as-default-value', 'null-as-default-value')
 	.exitProcess(true)
 	.parse(process.argv);
 
 const extractTask = new ExtractTask(cli.input, cli.output, {
 	replace: cli.replace,
-	patterns: cli.patterns
+	patterns: cli.patterns,
+	custService: cli.servicename,
+	custMethod: cli.methodname
 });
 
 // Parsers

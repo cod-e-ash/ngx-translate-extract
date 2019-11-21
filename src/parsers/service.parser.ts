@@ -8,8 +8,10 @@ const TRANSLATE_SERVICE_TYPE_REFERENCE = 'TranslateService';
 const TRANSLATE_SERVICE_METHOD_NAMES = ['get', 'instant', 'stream'];
 
 export class ServiceParser implements ParserInterface {
-	public extract(source: string, filePath: string): TranslationCollection | null {
+	public extract(source: string, filePath: string, custServiceName?: string, custMethodName?: string): TranslationCollection | null {
 		const sourceFile = tsquery.ast(source, filePath);
+		const serviceName = custServiceName ? custServiceName : TRANSLATE_SERVICE_TYPE_REFERENCE;
+		if(custMethodName) TRANSLATE_SERVICE_METHOD_NAMES.push(custMethodName);
 
 		const classDeclarations = findClassDeclarations(sourceFile);
 		if (!classDeclarations) {
@@ -19,7 +21,7 @@ export class ServiceParser implements ParserInterface {
 		let collection: TranslationCollection = new TranslationCollection();
 
 		classDeclarations.forEach(classDeclaration => {
-			const propName: string = findClassPropertyByType(classDeclaration, TRANSLATE_SERVICE_TYPE_REFERENCE);
+			const propName: string = findClassPropertyByType(classDeclaration, serviceName);
 			if (!propName) {
 				return;
 			}
