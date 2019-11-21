@@ -101,4 +101,8 @@ Options:
                                                                        [boolean]
   --null-as-default-value, -n  Use null as default value for translations
                                                                        [boolean]
-```
+  --servicename, -sn           Use custom service name instead of TranslateService
+                                                                       [string]   
+  --methodname, -sn            Add custom method name instead of get, instance etc
+                                                                       [string]                                                                        
+  ```
