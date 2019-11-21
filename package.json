@@ -1,7 +1,7 @@
 {
-  "name": "@biesbjerg/ngx-translate-extract",
+  "name": "@cod-e-ash/ngx-translate-extract",
   "version": "4.2.0",
-  "description": "Extract strings from projects using ngx-translate",
+  "description": "Extract strings from projects using ngx-translate, Forked from @biesbjerg/ngx-translate-extract",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -38,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/biesbjerg/ngx-translate-extract.git"
+	"url": "https://github.com/cod-e-ash/ngx-translate-extract.git"
   },
   "keywords": [
     "angular",
@@ -51,12 +51,12 @@
     "i18n",
     "gettext"
   ],
-  "author": "Kim Biesbjerg <kim@biesbjerg.com>",
+  "author": "Ashish <ashish.bagaddeo@outlook.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/biesbjerg/ngx-translate-extract/issues"
+    "url": "https://github.com/cod-e-ash/ngx-translate-extract/issues"
   },
-  "homepage": "https://github.com/biesbjerg/ngx-translate-extract",
+  "homepage": "https://github.com/cod-e-ash/ngx-translate-extract",
   "engines": {
     "node": ">=8"
   },
@@ -96,5 +96,6 @@
     "terminal-link": "^2.0.0",
     "typescript": "^3.6.3",
     "yargs": "^14.0.0"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }
